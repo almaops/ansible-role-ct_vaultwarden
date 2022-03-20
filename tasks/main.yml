@@ -1,0 +1,24 @@
+---
+- name: "{{ ct_vaultwarden_task_prefix }} Create directories"
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ ct_vaultwarden_path_config_base }}"
+    - "{{ ct_vaultwarden_path_data }}"
+- name: "{{ ct_vaultwarden_task_prefix }} Create env file"
+  template:
+    src: "{{ ct_vaultwarden_template_env }}"
+    dest: "{{ ct_vaultwarden_path_config_file }}"
+- name: "{{ ct_vaultwarden_task_prefix }} Provision container"
+  docker_container:
+    env_file: "{{ ct_vaultwarden_path_config_file }}"
+    image: "{{ ct_vaultwarden_ct_image }}:{{ ct_vaultwarden_ct_version }}"
+    name: "{{ ct_vaultwarden_ct_image }}"
+    ports: "{{ ct_vaultwarden_ct_ports }}"
+    pull: "{{ ct_vaultwarden_ct_pull }}"
+    recreate: "{{ ct_vaultwarden_ct_recreate }}"
+    restart_policy: "{{ ct_vaultwarden_ct_restart_policy }}"
+    state: "{{ ct_vaultwarden_ct_state }}"
+    volumes: "{{ ct_vaultwarden_ct_volumes }}"
+...

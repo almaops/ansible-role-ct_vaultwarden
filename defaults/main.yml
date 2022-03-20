@@ -1,0 +1,69 @@
+---
+# All variables specific to this role are prefixed with "ct_vaultwarden_"
+ct_vaultwarden_task_prefix: "=== Vaultwarden CT ==="
+
+# File names
+ct_vaultwarden_template_env: "vaultwarden.env.j2"
+ct_vaultwarden_file_env: "{{ ct_vaultwarden_ct_name }}.env"
+
+# Path settings
+ct_vaultwarden_path_config_base: "/etc/ct_vaultwarden"
+ct_vaultwarden_path_config_file: "{{ ct_vaultwarden_path_config_base }}/{{ ct_vaultwarden_file_env }}"
+ct_vaultwarden_path_base: "/srv/ct_vaultwarden"
+ct_vaultwarden_path_data: "{{ ct_vaultwarden_path_base }}/{{ ct_vaultwarden_ct_name }}"
+ct_vaultwarden_path_ct_data: "/data"
+
+# Network settings
+ct_vaultwarden_bind_addr: "127.0.0.1"
+ct_vaultwarden_bind_addr_www: "{{ ct_vaultwarden_bind_addr }}"
+ct_vaultwarden_bind_addr_socket: "{{ ct_vaultwarden_bind_addr }}"
+ct_vaultwarden_bind_port_www: "8080"
+ct_vaultwarden_bind_port_socket: "3012"
+ct_vaultwarden_bind_ct_port_www: "80"
+ct_vaultwarden_bind_ct_port_socket: "3012"
+
+# Container settings
+ct_vaultwarden_ct_name: "vaultwarden"
+ct_vaultwarden_ct_image: "vaultwarden/server"
+ct_vaultwarden_ct_version: "1.24.0"
+ct_vaultwarden_ct_restart_policy: "always"
+ct_vaultwarden_ct_state: "started"
+ct_vaultwarden_ct_restart: "no"
+ct_vaultwarden_ct_pull: "no"
+ct_vaultwarden_ct_recreate: "no"
+ct_vaultwarden_ct_volume_data:
+  - "{{ ct_vaultwarden_path_data }}:{{ ct_vaultwarden_path_ct_data }}"
+ct_vaultwarden_ct_volume_extra: []
+ct_vaultwarden_ct_volumes: "{{ ct_vaultwarden_ct_volume_data + ct_vaultwarden_ct_volume_extra }}"
+ct_vaultwarden_ct_ports_extra: []
+ct_vaultwarden_ct_ports_www:
+  - "{{ ct_vaultwarden_bind_addr_www }}:{{ ct_vaultwarden_bind_port_www }}:{{ ct_vaultwarden_bind_ct_port_www }}"
+ct_vaultwarden_ct_ports_socket:
+  - "{{ ct_vaultwarden_bind_addr_socket }}:{{ ct_vaultwarden_bind_port_socket }}:{{ ct_vaultwarden_bind_ct_port_socket }}"
+ct_vaultwarden_ct_ports: "{{ ct_vaultwarden_ct_ports_www + ct_vaultwarden_ct_ports_socket + ct_vaultwarden_ct_ports_extra }}"
+
+# Environment variables
+# Disable sign up
+ct_vaultwarden_env_signups_allowed: "false"
+# Disabled invites
+ct_vaultwarden_env_invitations_allowed: "false"
+# Admin Token to access admin area
+ct_vaultwarden_env_admin_token: ""
+# Disable Admin Token
+ct_vaultwarden_env_disable_admin_token: "false"
+# Enable WebSocket
+ct_vaultwarden_env_websocket_enabled: "true"
+# Domain name of Bitwarden RS instance
+ct_vaultwarden_env_domain: ""
+# SMTP settings
+ct_vaultwarden_env_smtp_host: "127.0.0.1"
+ct_vaultwarden_env_smtp_from: "admin@example.com"
+ct_vaultwarden_env_smtp_port: "587"
+ct_vaultwarden_env_smtp_ssl: "true"
+ct_vaultwarden_env_smtp_username: ""
+ct_vaultwarden_env_smtp_password: ""
+ct_vaultwarden_env_smtp_explicit_tls: "true"
+# Show password hint
+ct_vaultwarden_env_show_password_hint: "false"
+# Arbitrary environment variables
+ct_vaultwarden_env_extra: {}
