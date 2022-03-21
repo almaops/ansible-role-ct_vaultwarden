@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Valentin Gostev
-  role_name: vaultwarden
+  role_name: ct_vaultwarden
   namespace: almaops
   description: Ansible role to install Docker container with Vaultwarden
   license: MIT
