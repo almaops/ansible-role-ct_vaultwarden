@@ -14,7 +14,7 @@
   docker_container:
     env_file: "{{ ct_vaultwarden_path_config_file }}"
     image: "{{ ct_vaultwarden_ct_image }}:{{ ct_vaultwarden_ct_version }}"
-    name: "{{ ct_vaultwarden_ct_image }}"
+    name: "{{ ct_vaultwarden_ct_name }}"
     ports: "{{ ct_vaultwarden_ct_ports }}"
     pull: "{{ ct_vaultwarden_ct_pull }}"
     recreate: "{{ ct_vaultwarden_ct_recreate }}"
